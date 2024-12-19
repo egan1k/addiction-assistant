@@ -24,6 +24,7 @@ django-two-factor-auth==1.16.0
 phonenumbers==8.13.29
 pyqrcode==1.2.1
 django-nested-admin==4.0.2
+psycopg2==2.9.9
 
 # aws, s3, storages
 boto3==1.21.18
