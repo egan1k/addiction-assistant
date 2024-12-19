@@ -16,8 +16,8 @@ services:
       dockerfile: docker/django/Dockerfile
 #    image: pbm-django:dev
     env_file: .env
-#    environment:
-#      DJANGO_SETTINGS_MODULE: back.settings.settings
+    environment:
+      DJANGO_SETTINGS_MODULE: back.settings.settings
     command: bash -c "
       python manage.py migrate
       && python manage.py runserver 0.0.0.0:8000"

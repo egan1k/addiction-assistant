@@ -1,4 +1,6 @@
 from pathlib import Path
+import os
+from back.settings.django_environ import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -8,12 +10,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+*2)#xpe8(65qd_koajt^#yb$lnjb1s@3+8$!5^$t841%67r1k'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 
 # Application definition
@@ -25,11 +27,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django.contrib.postgres",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "corsheaders",
+    "django_extensions",
+    "django_filters",
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -62,11 +72,40 @@ WSGI_APPLICATION = 'back.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": env("POSTGRES_DB"),
+        "USER": env("POSTGRES_USER"),
+        "PASSWORD": env("POSTGRES_PASSWORD"),
+        "HOST": env("POSTGRES_HOST"),
+        "PORT": "",
     }
 }
+
+# if env("REDIS_URL"):
+#     redbeat_redis_url = os.environ.get("REDIS_URL", "redis://redis:6379") + "/1"
+#     use_ssl = redbeat_redis_url.startswith("rediss://")
+#     if use_ssl:
+#         CACHES = {
+#             "default": {
+#                 "BACKEND": "django_redis.cache.RedisCache",
+#                 "LOCATION": os.environ.get("REDIS_URL"),
+#                 "OPTIONS": {
+#                     "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#                     "CONNECTION_POOL_KWARGS": {"ssl_cert_reqs": None},
+#                 },
+#             }
+#         }
+#     else:
+#         CACHES = {
+#             "default": {
+#                 "BACKEND": "django_redis.cache.RedisCache",
+#                 "LOCATION": env("REDIS_URL"),
+#                 "OPTIONS": {
+#                     "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#                 },
+#             },
+#         }
 
 
 # Password validation
@@ -87,20 +126,40 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# AUTH_USER_MODEL = "main.User"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EST'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+DATE_INPUT_FORMATS = [
+    "%m/%d/%Y",
+    "%Y-%m-%d",
+    "%m/%d/%y",
+    "%b %d %Y",
+    "%b %d, %Y",
+    "%d %b %Y",
+    "%d %b, %Y",
+    "%B %d %Y",
+    "%B %d, %Y",
+    "%d %B %Y",
+    "%d %B, %Y",
+]
+
+DATE_FORMAT = "m/d/Y"
+DATETIME_FORMAT = "m/d/Y P"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -110,4 +169,3 @@ STATIC_URL = '/static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

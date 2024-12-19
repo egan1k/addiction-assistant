@@ -1,0 +1,40 @@
+import environ
+
+# Django environ settings
+# https://django-environ.readthedocs.io/en/latest/
+
+env = environ.Env(
+    DEBUG=(bool, True),
+    SECRET_KEY=(str, "secretKey"),
+    ALLOWED_HOSTS=(str, "*"),
+    HOST=(str, "127.0.0.1"),
+    SENTRY_DSN=(str, ""),
+    ENVIRONMENT=(str, "unknown"),
+    SES_AWS_ACCESS_KEY_ID=(str, ""),
+    SES_AWS_SECRET_ACCESS_KEY=(str, ""),
+    GMAIL_EMAIL=(str, ""),
+    GMAIL_PASSWORD=(str, ""),
+    EMAIL_HOST=(str, "smtp.mandrillapp.com"),
+    EMAIL_HOST_USER=(str, "ASAD"),
+    EMAIL_PORT=(int, 587),
+    EMAIL_USE_TLS=(bool, True),
+    EMAIL_HOST_PASSWORD=(str, ""),
+    DEFAULT_FROM_EMAIL=(str, "ASAD <noreply@asad.com>"),
+    POSTGRES_DB=(str, "asad_db"),
+    POSTGRES_USER=(str, "asad_user"),
+    POSTGRES_PASSWORD=(str, "asad_password"),
+    POSTGRES_HOST=(str, "0.0.0.0"),
+    POSTGRES_PORT=(int, None),
+    REDIS_HOST=(str, "redis"),
+    REDIS_PORT=(int, 6379),
+    REDIS_DB=(int, 1),
+    REDIS_URL=(str, ""),
+    FRONTEND_URL=(str, "http://localhost:3000"),
+    BACKEND_URL=(str, "http://localhost:8000"),
+    FILE_STORAGE=(str, "local"),
+    AWS_ACCESS_KEY_ID=(str, ""),
+    AWS_SECRET_ACCESS_KEY=(str, ""),
+    AWS_STORAGE_BUCKET_NAME=(str, ""),
+    DECREASE_PAYMENT_AMOUNTS=(bool, False),
+    SITE_DOMAIN=(str, "localhost"),
+)
