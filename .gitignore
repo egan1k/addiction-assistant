@@ -1,0 +1,45 @@
+.idea/*
+*.DS_Store
+*__pycache__*
+*.pyc
+*.log
+local_settings.py
+.env
+venv
+.venv
+.run
+db.sqlite3
+celerybeat-schedule
+celerybeat.pid
+
+# project
+coverage.*
+.coverage
+coverage/
+libs/*
+libs3.8/*
+htmlcov/*
+back/static/*
+back/media/*
+back/htmlcov/*
+*/media/*
+.gitlab-ci.yaml
+
+# front
+front/.eslintcache
+front/debug.log
+front/.yarn
+front/node_modules
+
+back/jupiter_notebooks/.ipynb_checkpoints/*
+
+# docker, heroku
+docker-compose.yml
+back/requirements.txt
+back/redbeat.RedBeatScheduler
+.vscode
+mypy.ini
+latest.dump
+front/package-lock.json
+
+.pre-commit-config.yaml
