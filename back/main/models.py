@@ -11,11 +11,18 @@ class User(AbstractUser):
         unique=True,
     )
     is_active = models.BooleanField(default=True)
+    is_locked = models.BooleanField(default=False)
+    locked_until = models.DateTimeField(blank=True, null=True)
     account_type = models.CharField(
         choices=constants.AccountType.choices,
         default=constants.AccountType.regular_user,
         max_length=20,
     )
+    login_attempts_left = models.PositiveSmallIntegerField(
+        blank=True, null=True, default=5
+    )
+    last_failed_login_attempt = models.DateTimeField(blank=True, null=True)
+
     objects = managers.CustomUserManager()
 
     USERNAME_FIELD = "email"

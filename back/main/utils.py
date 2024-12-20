@@ -1,3 +1,8 @@
+from django.utils import timezone
+
+from dateutil.relativedelta import relativedelta
+
+
 def smart_capitalize(string):
     words = string.split(" ")
     result = ["{}{}".format(word[0].upper(), word[1:]) for word in words if word]
@@ -34,3 +39,16 @@ def generate_unique_username(user, model):
         postfix = str(i) if i else ""
         if not qs.filter(username=username + postfix).exists():
             return username + postfix
+
+def block_user(user):
+    user.is_locked = True
+    user.locked_until = timezone.now() + relativedelta(days=1)
+    user.save(update_fields=["is_locked", "locked_until"])
+
+def get_client_ipv4(request):
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(",")[0]
+    else:
+        ip = request.META.get("REMOTE_ADDR")
+    return ip

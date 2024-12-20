@@ -22,6 +22,7 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 INSTALLED_APPS = [
     'main',
+    'cms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -167,6 +168,8 @@ DATETIME_FORMAT = "m/d/Y P"
 
 STATIC_URL = '/static/'
 
+DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 100
+DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_UNIT = "minute"
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

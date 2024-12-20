@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from asad_auth.views import CustomAuthToken
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #auth
+    path('api/token/', CustomAuthToken.as_view(), name='simple_token_obtain'),
 ]
