@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from asad_auth.views import CustomAuthToken
 
@@ -22,4 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #auth
     path('api/token/', CustomAuthToken.as_view(), name='simple_token_obtain'),
+
+    #api
+    path("api/cms/", include("cms.urls")),
 ]

@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate
+
 from .models import DashboardLoginLogs
 
 
@@ -17,3 +19,15 @@ def log_dashboard_login(email, ip_address, is_success, error_message=None):
     if not is_success and error_message:
         log.errors = error_message
         log.save()
+
+
+def authenticate_user(email, password, request):
+    user = authenticate(request=request, email=email, password=password)
+    return user
+
+
+def is_user_credentials_are_valid(email, password, request):
+    user = authenticate_user(email, password, request)
+    if user:
+        return True
+    return False
